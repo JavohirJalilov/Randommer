@@ -11,7 +11,11 @@ class Finance(Randommer):
         Returns:
             list: list of types
         '''
-        pass
+        base_url = self.base_url
+        url = f"{base_url}/api/Finance/CryptoAddress/Types"
+        headers = {"X-Api-Key": api_key}
+        r = requests.get(url, headers=headers)
+        return r.json()
 
     def get_crypto_address(self, crypto_type: str, api_key: str) -> dict:
         '''get available crypto address
@@ -47,3 +51,8 @@ class Finance(Randommer):
             dict: idan data
         '''
         pass
+
+key = "f1ab06cd2da14928a4f4299e85162d76"
+f = Finance()
+
+print(f.get_crypto_address_types(key))
