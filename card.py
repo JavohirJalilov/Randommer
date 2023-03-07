@@ -13,16 +13,17 @@ class Card(Randommer):
         Returns:
             dict: card data
         '''
-        base_url = self.get_url()
+        url = self.get_url() + "/api/card"
         payload = {
-            "type":type_card
+            "type": type_card
         }
         headers = {
-            "X-Api-Key":api_key
+            "X-Api-Key": api_key
         }
-        url = f"{base_url}/api/Card"
-        r = requests.get(url,params=payload, headers=headers)
-        return r.json()
+        response = requests.get(url, params=payload, headers=headers)
+        if response.status_code == 200:
+            return response.json()
+        return False
 
     def get_card_types(self, api_key: str) -> list:
         '''get cars types from randommer
